@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.ForeignKey;
+
 @Entity
 public class Telefone implements Serializable{
 
@@ -20,9 +22,11 @@ public class Telefone implements Serializable{
 	private String tipo;
 	
 	@ManyToOne//MUITOS TELEFONES PARA UMA EMPRESA
-	private ParceCadEmpresa empresa;
+	private ParceCadEmpresa parceCadEmpresa;
 	
-	@ManyToOne
+	//MUITOS TELEFONES PARA UMA EMPRESA
+	@ForeignKey(name = "pessoa_id")
+	@ManyToOne(optional = false)//ANNOTAÇÃO QUE OBRIGA TER UM PAI CADASTRADO
 	private Pessoa pessoa;
 	
 	public Long getId() {
@@ -44,5 +48,16 @@ public class Telefone implements Serializable{
 		this.tipo = tipo;
 	}
 	
-	
+	public ParceCadEmpresa getParceCadEmpresa() {
+		return parceCadEmpresa;
+	}
+	public void setParceCadEmpresa(ParceCadEmpresa parceCadEmpresa) {
+		this.parceCadEmpresa = parceCadEmpresa;
+	}
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
 }

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Endereco implements Serializable{
@@ -13,7 +14,7 @@ public class Endereco implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String cep;
@@ -23,6 +24,12 @@ public class Endereco implements Serializable{
 	private String bairro;
 	private String cidade;
 	private String uf;
+	
+	@OneToOne// UM ENDEREÇO PARA UMA PESSOA
+	private Pessoa pessoa;
+	
+	@OneToOne//UM ENDEREÇO PARA UMA EMPRESA
+	private ParceCadEmpresa parceCadEmpresa;
 	
 	
 	public Long getId() {
@@ -74,5 +81,18 @@ public class Endereco implements Serializable{
 		this.uf = uf;
 	}
 	
-
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+	public ParceCadEmpresa getParceCadEmpresa() {
+		return parceCadEmpresa;
+	}
+	public void setParceCadEmpresa(ParceCadEmpresa parceCadEmpresa) {
+		this.parceCadEmpresa = parceCadEmpresa;
+	}
+	
+	
 }

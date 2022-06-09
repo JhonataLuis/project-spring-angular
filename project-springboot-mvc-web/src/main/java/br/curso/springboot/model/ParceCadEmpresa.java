@@ -8,6 +8,7 @@ package br.curso.springboot.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class ParceCadEmpresa implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int codParceVend;
 	
     private String nomeEmp;
@@ -35,8 +36,13 @@ public class ParceCadEmpresa implements Serializable{
     private String sobrenomeRepre;
     private String emailRepre;
     
-    @OneToMany//UMA EMPRESA PARA MUITOS TELEFONES
+    //UMA EMPRESA PARA MUITOS TELEFONES
+    @OneToMany(mappedBy = "parceCadEmpresa", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Telefone> telefones;
+    
+    //UMA EMPRESA COM MUITOS PRODUTOS
+    @OneToMany(mappedBy = "parceCadEmpresa", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Products> products;
     
     @Lob
     private byte[] imagemBusiness;
@@ -45,7 +51,17 @@ public class ParceCadEmpresa implements Serializable{
     private String tipoImg;
 
     
-    public byte[] getImagemBusiness() {
+    public List<Products> getProducts() {
+		return products;
+	}
+
+
+	public void setProducts(List<Products> products) {
+		this.products = products;
+	}
+
+
+	public byte[] getImagemBusiness() {
 		return imagemBusiness;
 	}
 

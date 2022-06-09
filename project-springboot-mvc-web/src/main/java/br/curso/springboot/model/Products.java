@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,18 +24,65 @@ public class Products implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long idProduct;
     
-    private int codParceVend;
-    private String loginUsuEmp;
     private String nomeProduct;
     private String descProduct;
     private String catProduct;
     private float precoProduct;
     private float pesoProduct;
     private String detailProduct;
-    private String imgProduct;
+    
+    @Lob
+    private byte[] imgProduct;
+    
+    private String nomeImg;
+    private String tipoImg;
+    
+    //MUITOS PRODUTOS PARA UMA EMPRESA
+    @ManyToOne
+    private ParceCadEmpresa parceCadEmpresa;
+
+    
+    public byte[] getImgProduct() {
+		return imgProduct;
+	}
+
+
+	public void setImgProduct(byte[] imgProduct) {
+		this.imgProduct = imgProduct;
+	}
+
+
+	public String getNomeImg() {
+		return nomeImg;
+	}
+
+
+	public void setNomeImg(String nomeImg) {
+		this.nomeImg = nomeImg;
+	}
+
+
+	public String getTipoImg() {
+		return tipoImg;
+	}
+
+
+	public void setTipoImg(String tipoImg) {
+		this.tipoImg = tipoImg;
+	}
+
+
+	public ParceCadEmpresa getParceCadEmpresa() {
+		return parceCadEmpresa;
+	}
+
+
+	public void setParceCadEmpresa(ParceCadEmpresa parceCadEmpresa) {
+		this.parceCadEmpresa = parceCadEmpresa;
+	}
 
   
     public Long getIdProduct() {
@@ -92,36 +141,6 @@ public class Products implements Serializable{
    
     public void setDetailProduct(String detailProduct) {
         this.detailProduct = detailProduct;
-    }
-
-   
-    public String getImgProduct() {
-        return imgProduct;
-    }
-
-   
-    public void setImgProduct(String imgProduct) {
-        this.imgProduct = imgProduct;
-    }
-
-    
-    public String getLoginUsuEmp() {
-        return loginUsuEmp;
-    }
-
-   
-    public void setLoginUsuEmp(String loginUsuEmp) {
-        this.loginUsuEmp = loginUsuEmp;
-    }
-
-   
-    public int getCodParceVend() {
-        return codParceVend;
-    }
-
-   
-    public void setCodParceVend(int codParceVend) {
-        this.codParceVend = codParceVend;
     }
 
     
